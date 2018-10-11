@@ -1,12 +1,12 @@
-     def car_startup(self):
-         # Implement the assignment code here.
+    def car_startup(self):
+        # Implement the assignment code here.
  
-         direction_controller = front_wheels.Front_Wheels()
-  	 direction_controller.center_alignment()
- 	 time.sleep(1)
- 	 driving_controller = rear_wheels.Rear_Wheels()
- 	 driving_controller.ready()
- 	 detector = Supersonic_Sensor.Supersonic_Sensor(35)
+	direction_controller = front_wheels.Front_Wheels()
+        direction_controller.center_alignment()
+ 	time.sleep(1)
+ 	driving_controller = rear_wheels.Rear_Wheels()
+ 	driving_controller.ready()
+        detector = Supersonic_Sensor.Supersonic_Sensor(35)
  
 
 코드를 실행하면, 차의 앞 바퀴가 앞을 바라보도록 한 뒤, 뒷 바퀴가 대기 상태로 머무르도록 했습니다.
@@ -65,7 +65,7 @@ done이 "False"이면 while문이 계속 실행되도록 하였습니다. 먼저
 
 detector.get_distance()가 a보다 작은 경우에는 일단 음수인 경우에는 초음파 센서가 음수의 값을 측정한 경우는 오류이기 때문에 continue를 통해 while루프가 다시 실행되도록 했습니다. 
 
-음수인 경우를 제외하고 detector.get_distance()가 a보다 작은 경우에는 뒷 바퀴의 움직임을 2초동안 멈추게 했고, 앞으로 주행했을 때와 같은 속도로 4초동안 뒤로 주행을 하도록 했습니다.
+음수인 경우를 제외하고 detector.get_distance()가 a보다 작은 경우에는 뒷 바퀴의 움직임을 2초동안 멈추게 했고, 앞으로 주행했을 때와 같은 속도로 4초동안 뒤로 주행을 하도록 했습니다. 그리고 1초동안 잠시 멈추도록 했습니다.
 
 이 과정이 끝나면 speed의 값에 +20을, limit의 값에 +5를, count에 +1을 하였습니다.
 
