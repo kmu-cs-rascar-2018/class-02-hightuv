@@ -1,4 +1,4 @@
-        while True:
+    while True:
         self.car.accelerator.go_forward(70)
 
 #while문을 사용하여 구현을 했습니다. 뒷바퀴가 70의 속도로 앞으로 계속 굴러가도록 했습니다.
