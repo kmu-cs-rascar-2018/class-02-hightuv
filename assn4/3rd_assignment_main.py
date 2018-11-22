@@ -24,11 +24,13 @@ class myCar(object):
     # =======================================================================
     def drive_back(self):
         while self.car.line_detector.read_digital() == [0,0,0,0,0]:
-            self.car.steering.turn(120)
-            self.car.accelerator.go_backward(100)
+            self.car.steering.turn(145)
             time.sleep(0.01)
-        self.car.steering.turn(55)
-        self.car.accelerator.go_forward(100)
+            self.car.accelerator.go_backward(90)
+            time.sleep(0.01)
+        self.car.steering.turn(35)
+        time.sleep(0.01)
+        self.car.accelerator.go_forward(95)
         time.sleep(0.2)
 
 
@@ -66,7 +68,7 @@ class myCar(object):
             self.drive_back()
         elif track == [1,1,1,1,1]:
             self.count += 1
-            time.sleep(0.3)  
+            time.sleep(0.3)
 
     def car_startup(self):
 
@@ -81,40 +83,47 @@ class myCar(object):
             while True:
                 track = self.car.line_detector.read_digital()
             
-
-                if distance_detector.get_distance() > 10:
-                    self.car.accelerator.go_forward(55)
+                if distance_detector.get_distance() > 23:
+                    self.car.accelerator.go_forward(50)
+                    time.sleep(0.01)
                     self.linetrace()
                     time.sleep(0.05)
-                elif distance_detector.get_distance() <= 10 and distance_detector.get_distance() > 0:
-                    self.car.steering.turn(40)
+                
+                elif distance_detector.get_distance() <= 23 and distance_detector.get_distance() > 0:
+                    self.car.steering.turn(35)
+                    time.sleep(0.01)
                     self.car.accelerator.go_forward(45)
-                    time.sleep(1.5)
+                    time.sleep(1)
                     while True:
                         self.car.steering.turn(90)
-                        self.car.accelerator.go_forward(60)
-                        if 1 in self.car.line_detector.read_digital():
-                            self.car.accelerator.stop()
-                            break
-                    self.car.steering.turn(140)
-                    self.car.accelerator.go_forward(55)
-                    time.sleep(2)
-                    while True:
-                        self.car.steering.turn(140)
+                        time.sleep(0.01)
                         self.car.accelerator.go_forward(55)
                         if 1 in self.car.line_detector.read_digital():
                             self.car.accelerator.stop()
                             break
-                        
-                
+                    self.car.steering.turn(145)
+                    time.sleep(0.01)
+                    self.car.accelerator.go_forward(60)
+                    time.sleep(1.2)
+                    while True:
+                        self.car.steering.turn(90)
+                        time.sleep(0.01)
+                        self.car.accelerator.go_forward(50)
+                        if 1 in self.car.line_detector.read_digital():
+                            self.car.accelerator.stop()
+                            break
                 else:
                     pass
-                    
+
+
                 if self.count == 2:
                     self.car.accelerator.stop()
                     break
         except:
-            pass
+            self.car.accelerator.stop()
+            time.sleep(0.3)
+            self.car_startup()
+            
 if __name__ == "__main__":
     try:
         myCar = myCar("CarName")
@@ -123,4 +132,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         # when the Ctrl+C key has been pressed,
         # the moving object will be stopped
+        myCar.accelerator.stop()
         myCar.drive_parking()
